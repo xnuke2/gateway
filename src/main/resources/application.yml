@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: gateway
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/realms/service/protocol/openid-connect/certs
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/service
+        registration:
+          spring-with-test-scope:
+            provider: keycloak
+            client-id: spring-gateway-client
+            client-secret: PnLVmvIjqXdTLMz2d4ZcTC94UcER72PI
+            authorization-grant-type: authorization_code
+            scope: openid
+  cloud:
+    gateway:
+      default-filters:
+        - TokenRelay=
+      routes:
+        - id: deputy
+          uri: http://localhost:8085
+          predicates:
+            - Path=/deputes/**
+        - id: users
+          uri: http://localhost:8090
+          predicates:
+            - Path=/users/**
+server.port: 8060
+
+logging.level:
+  org.springframework.cloud.gateway: DEBUG
+  org.springframework.security: DEBUG
+  org.springframework.web.reactive.function.client: TRACE
