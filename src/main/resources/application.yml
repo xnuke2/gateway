@@ -14,7 +14,7 @@ spring:
           spring-with-test-scope:
             provider: keycloak
             client-id: spring-gateway-client
-            client-secret: PnLVmvIjqXdTLMz2d4ZcTC94UcER72PI
+            client-secret: d2loBgn7AXH9RwLBOAtuRm6vkDWPMBjH
             authorization-grant-type: authorization_code
             scope: openid
   cloud:
